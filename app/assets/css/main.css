@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme {
+  --font-sans: 'Public Sans', sans-serif;
+  --font-circe: 'Circe', sans-serif;
+  --font-content: 'Content', sans-serif;
+
+  --color-blue: rgba(14, 108, 221, 1);
+  --color-text-black: rgba(51, 51, 51, 1);
+  --color-yelow: rgba(255, 215, 64, 1);
+  --color-dark-yellow: rgba(255, 202, 0, 1);
+  --color-input-blue: rgba(14, 108, 221, 1);
+  --color-ultra-dark-blue: rgba(0, 71, 156, 1);
+  --color-bg-blue: rgba(14, 108, 221, 1);
+  --color-text-gray: rgba(125, 125, 125, 1);
+  --color-red: rgba(227, 30, 36, 1);
+  --color-green: rgba(52, 168, 83, 1);
+  --color-strawberry: rgba(251, 99, 64, 1);
+  --color-violet: rgb(137, 60, 169);
+  --color-dark-blue: rgba(0, 92, 204, 1);
+  --color-BG: rgba(241, 246, 253, 1);
+  --color-black-60: rgba(182, 182, 182, 1);
+
+
+
+  --color-green-50: #EFFDF5;
+  --color-green-100: #D9FBE8;
+  --color-green-200: #B3F5D1;
+  --color-green-300: #75EDAE;
+  --color-green-400: #00DC82;
+  --color-green-500: #00C16A;
+  --color-green-600: #00A155;
+  --color-green-700: #007F45;
+  --color-green-800: #016538;
+  --color-green-900: #0A5331;
+  --color-green-950: #052E16;
+
+  --breakpoint-3xl: 1500px;
+}
+
+@layer utilities {
+  .hide-scrollbar {
+    /* Firefox */
+    scrollbar-width: none;
+    /* IE и Edge */
+    -ms-overflow-style: none;
+  }
+
+  /* Chrome, Safari и Opera */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
