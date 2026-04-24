@@ -7,7 +7,7 @@ const props = defineProps<{
 
 <template>
     <div
-        class="p-2 md:p-8 flex w-46 md:w-66 h-99.75 md:h-124 flex-col border rounded-2xl border-blue/20 hover:border-blue justify-between relative @container">
+        class=" p-2 md:p-8 flex md:min-w-66 w-full h-99.75 md:h-124 flex-col border rounded-2xl border-blue/20 hover:border-blue justify-between relative @container">
     
         <NuxtImg :src="data.attributes.preview" :alt="data.attributes.name" loading="lazy" placeholder class=" md:w-full object-cover" />
 
