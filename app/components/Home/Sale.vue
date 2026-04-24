@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-const { data: hits } = await useLazyFetch<HeroHitsData>('/api/include/mainpage/hit/recommend/')
+const { data: hits } = await useLazyFetch<HeroHitsData>('/api/include/mainpage/hit/stock/')
 
 const isActive = ref<HeroHitsCategoryData | null | undefined>(null)
 
@@ -20,7 +20,7 @@ const { data: products, pending: pendingOfProdcts } = useLazyFetch<HomeHitsProdu
 
 <template>
     <div class="flex flex-col gap-4">
-        <h3 class="font-circe text-xl md:text-3xl">Рекомендуем</h3>
+        <h3 class="font-circe text-xl md:text-3xl">Распродажа</h3>
         <div class="flex gap-3">
             <UiCategoryButton :active="isActive?.id == value.id ? true : false" v-for="value in hits?.data" @click="isActive = value">
                 {{ value.attributes.name }}
@@ -32,7 +32,7 @@ const { data: products, pending: pendingOfProdcts } = useLazyFetch<HomeHitsProdu
         </UCarousel>
 
         <UCarousel v-else v-slot="{ item }" :items="products?.data" :ui="{ item: 'basis-auto' }">
-            <HomeProductCard :data="item" />  
+            <HomeProductCard class="w-46 md:w-66" :data="item" />  
         </UCarousel>
 
 

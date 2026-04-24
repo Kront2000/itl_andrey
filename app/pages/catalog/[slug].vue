@@ -1,74 +1,66 @@
 <script setup lang='ts'>
 import type { BreadcrumbItem } from '@nuxt/ui';
-
-
-
-
-
-// const route = useRoute()
-// const router = useRouter()
-// // 1. Получаем slug текущей категории (например, 'elektronika')
-// const categorySlug = route.params.slug
-// // 2. Формируем запрос данных. 
-// // Nuxt 4 крут тем, что useAsyncData умеет следить за изменениями.
-// const { data: catalogData, pending } = await useAsyncData(
-//   `catalog-${categorySlug}`, // уникальный ключ
-//   () => {
-//     // Собираем параметры из URL (query), чтобы передать их в API
-//     const queryParams = new URLSearchParams(route.query).toString()
-
-//     // Запрашиваем данные текущей категории + передаем фильтры/пагинацию
-//     return $fetch(`https://api.retail.itl.digital/catalog/${categorySlug}/?include=items,filter,reviews-statistics,sections&${queryParams}`)
-//   },
-//   {
-//     // МАГИЯ: Заставляем Nuxt перезапрашивать данные каждый раз, когда меняется URL (query параметры)
-//     watch: [() => route.query] 
-//   }
-// )
-// // Функция для обновления URL при клике на фильтр/пагинацию
-// const updateFilters = (newFilters) => {
-//   router.push({
-//     query: {
-//       ...route.query, // сохраняем старые параметры
-//       ...newFilters,  // добавляем новые (например, { page: 2 } или { sort: 'price_asc' })
-//     }
-//   })
-// }
+import pushBreadcrumb from '~/utils/pushBreadCrubm';
 
 const route = useRoute()
-const slug = route.params.slug;
+const router = useRouter()
 
-const { data: fullData, pending } = await useAsyncData(async (_nuxtApp, { signal }) => {
-  const [fullData, allCategories] = await Promise.all([
-    $fetch<CatalogFullInfoEndpointData>(`/api/catalog/${slug}/?include=items,filter,reviews-statistics,sections`, { signal }),
-    $fetch<CatalogMainEndpointData>('/api/catalog/', { signal }),
+const { data, pending } = await useAsyncData(`catalog-${route.params.slug}`, async () => {
+  const slug = route.params.slug;
+
+  const [allCategories, thisCategory] = await Promise.all([
+    $fetch<CatalogMainEndpointData>('/api/catalog/'),
+      $fetch<CatalogFullInfoEndpointData>(`/api/catalog/${slug}/?include=filter`),
   ])
-  const subcategories = allCategories.data.filter((category) => category.attributes.parentId == fullData.data.id);
+  //Хлебные крошки
   const breadcrumb: BreadcrumbItem[] = [];
-  fullData.meta.breadcrumb.map((items) => breadcrumb.push({ label: items.attributes.name, to: items.links.self }))
-  return { fullData, subcategories, breadcrumb }
-}, { watch: [() => slug] })
+  pushBreadcrumb(thisCategory.data.id, allCategories.data, breadcrumb);
+  //Под категрии у данной категории
+  const subcategories: CatalogTitleCard[] = allCategories.data.filter((item) => item.attributes.parentId == thisCategory.data.id)
+  
+  return { allCategories, breadcrumb, thisCategory, subcategories };
+}, {watch: [() => route.params.slug]})
 
-// const {data: fullInfo, pending: fullInfoPending} = useLazyFetch<CatalogFullInfoEndpointData>(`/api/catalog/${slug}/?include=items,filter,reviews-statistics,sections`);
-// const { data: subcategories, pending: subcategoriesPending } = await useLazyFetch<CatalogMainEndpointData>('/api/catalog/', {
-//   transform: (data) => {
-//     return {data: data.data.filter((category) => category.attributes.parentId == undefined)} 
-//   },
-// })
+const {data: fullData, pending: fullDataPending} = await useAsyncData(`catalog-full-${route.params.slug}`, async () => {
+  const slug = route.params.slug;
+  const fullData = await $fetch<CatalogFullInfoEndpointData>(`/api/catalog/${slug}/`, {
+      query: {
+        include: 'items,filter,reviews-statistics,sections',
+        ...route.query 
+      }
+    });
+    return {fullData};
+
+}, {watch: [() => route.params.slug, () => route.query]})
 </script>
 
 <template>
-  <div class="flex flex-col mx-auto w-full px-6 lg:px-27 max-w-[1920px] gap-17 pt-15.5 pb-17">
+  <div class="flex flex-col mx-auto w-full px-6 lg:px-27 max-w-480  gap-17 pt-15.5 pb-17">
     <CatalogWideBanner class="mb-12" />
 
-    <UBreadcrumb :items="fullData?.breadcrumb">
+    <UBreadcrumb :items="data?.breadcrumb">
       <template #separator>
         <span class="mx-2 text-muted">/</span>
       </template>
     </UBreadcrumb>
 
-    <CatalogTitle :pending="pending" :cat-name="fullData?.fullData.data.attributes.name"
-      :count="fullData?.fullData.data.attributes.count" :categories="fullData?.subcategories" />
+    <CatalogTitle :pending="pending" :cat-name="data?.thisCategory.data.attributes.name"
+      :count="data?.thisCategory.data.attributes.count" :categories="data?.subcategories" />
+
+    <div class="w-full flex gap-6">
+      <div class="w-66 flex flex-col">
+
+        <UiSlider v-if="data?.thisCategory.included.filter.attributes.prices[0]"
+          :data="data?.thisCategory.included.filter.attributes.prices[0]" />
+
+        <UiCheckers v-if="data?.thisCategory.included.filter.attributes.properties[0]?.type == 'L'" :data="data?.thisCategory.included.filter.attributes.properties[0] as any"/>
+
+      </div>
+
+      <div class="flex-1 grid grid-cols-2 xl:grid-cols-3 2xl-3xl:grid-cols-4 3xl:grid-cols-5  gap-6 ">
+        <HomeProductCard v-for="value in fullData?.fullData.included.items" :data="value" />
+      </div>
+    </div>
 
   </div>
 </template>

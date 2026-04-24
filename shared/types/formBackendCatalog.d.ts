@@ -68,27 +68,15 @@ interface CatalogFullInfoEndpointData {
             attributes: {
                 prices: {
                     name: string,
-                    values: {
-                        min: {
-                            id: string,
-                            value: number,
-                        },
-                        max: {
-                            id: string,
-                            value: number,
-                        }
-                    }
+                    type: string,
+                    code: string,
+                    values: NTypeValues
                 }[],
                 properties: {
                     name: string,
                     type: string,
                     code: string,
-                    values: {
-                        id: string,
-                        name: string,
-                        xml_id: string,
-                        value: string,
-                    }[],
+                    values: LTypeValues[] | NTypeValues,
                     expanded: boolean,
                     toggle: boolean,
                 }[],
@@ -97,7 +85,7 @@ interface CatalogFullInfoEndpointData {
         },
         items: SharedProductData[],
         "reviews-statistics": {
-            id:number,
+            id: number,
             attributes: {
                 rating: number,
                 count: number,
@@ -106,7 +94,7 @@ interface CatalogFullInfoEndpointData {
         stores: {
             items: Record<string, { name: string, address: string, phone: string, schedule: string } | null>
         },
-        
+
 
     },
     meta: {
@@ -130,5 +118,23 @@ interface CatalogFullInfoEndpointData {
             }
         }[],
         csrf: string,
+    }
+}
+
+interface LTypeValues {
+    id: string,
+    name: string,
+    xml_id: string,
+    value: string,
+}
+
+interface NTypeValues {
+    min: {
+        id: string,
+        value: number,
+    },
+    max: {
+        id: string,
+        value: number,
     }
 }
