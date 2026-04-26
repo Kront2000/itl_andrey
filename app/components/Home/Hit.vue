@@ -10,8 +10,8 @@ watch(hits, (newHits) => {
 }, { immediate: true })
 
 const { data: products, pending: pendingOfProdcts } = useLazyFetch<HomeHitsProductData>(() => {
-    const url = isActive.value?.links?.self ? `/api${isActive.value.links.self}` : '' 
-    return url as string 
+    const url = isActive.value?.links?.self ? `/api${isActive.value.links.self}` : ''
+    return url as string
 }, {
     watch: [isActive]
 })
@@ -21,21 +21,20 @@ const { data: products, pending: pendingOfProdcts } = useLazyFetch<HomeHitsProdu
 <template>
     <div class="flex flex-col gap-4">
         <h3 class="font-circe text-xl md:text-3xl ">Хиты продаж</h3>
-        <div class="flex gap-3">
-            <UiCategoryButton :active="isActive?.id == value.id ? true : false" v-for="value in hits?.data" @click="isActive = value">
-                {{ value.attributes.name }}
+        <UCarousel v-slot="{ item }" :items="hits?.data" :ui="{ item: 'basis-auto' }">
+            <UiCategoryButton :active="isActive?.id == item.id ? true : false" "
+                @click="isActive = item">
+                {{ item.attributes.name }}
             </UiCategoryButton>
-        </div>
-
-        <UCarousel v-if="pendingOfProdcts"  :items="[0, 0, 0, 0]" :ui="{ item: 'basis-auto' }">
-            <USkeleton  class="w-66 h-124 bg-white rounded-lg"/>  
+        </UCarousel>
+        
+        <UCarousel v-if="pendingOfProdcts" :items="[0, 0, 0, 0]" :ui="{ item: 'basis-auto' }">
+            <USkeleton class="w-66 h-124 bg-white rounded-lg" />
         </UCarousel>
 
         <UCarousel v-else v-slot="{ item }" :items="products?.data" :ui="{ item: 'basis-auto' }">
-            <HomeProductCard class="w-46 md:w-66" :data="item" />  
+            <HomeProductCard class="" :data="item" />
         </UCarousel>
-
-        
     </div>
 </template>
 

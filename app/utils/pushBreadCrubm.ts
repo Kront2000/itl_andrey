@@ -9,12 +9,12 @@ export default function pushBreadcrumb(
   if (!category) return; 
   finalArray.unshift({
     label: category.attributes.name,
-    link: category.links.self
+    to: category.links.self
   });
 
   const parentId = category.attributes.parentId;
   if (parentId === undefined || parentId === null) {
-    finalArray.unshift({ label: 'Главная', link: '/' });
+    finalArray.unshift({ label: 'Главная', to: '/' });
   } else {
     pushBreadcrumb(parentId, allCategories, finalArray);
   }

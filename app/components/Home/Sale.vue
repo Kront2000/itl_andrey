@@ -21,11 +21,13 @@ const { data: products, pending: pendingOfProdcts } = useLazyFetch<HomeHitsProdu
 <template>
     <div class="flex flex-col gap-4">
         <h3 class="font-circe text-xl md:text-3xl">Распродажа</h3>
-        <div class="flex gap-3">
-            <UiCategoryButton :active="isActive?.id == value.id ? true : false" v-for="value in hits?.data" @click="isActive = value">
-                {{ value.attributes.name }}
+        <UCarousel v-slot="{ item }" :items="hits?.data" :ui="{ item: 'basis-auto' }">
+            <UiCategoryButton :active="isActive?.id == item.id ? true : false" "
+                @click="isActive = item">
+                {{ item.attributes.name }}
             </UiCategoryButton>
-        </div>
+        </UCarousel>
+        
         
         <UCarousel v-if="pendingOfProdcts"  :items="[0, 0, 0, 0]" :ui="{ item: 'basis-auto' }">
             <USkeleton  class="w-66 h-124 bg-white rounded-lg"/>  

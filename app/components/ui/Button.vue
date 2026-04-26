@@ -33,7 +33,7 @@ enum Type {
         :class="{
             'bg-yellow-400 px-4 py-3': type == Type.Default, 
             '': type == Type.Ghost, 
-            'border border-current px-4 py-1': type == 'outline'
+            'border border-current/40 px-4 py-1 ': type == 'outline'
         }"
     >
         <slot />

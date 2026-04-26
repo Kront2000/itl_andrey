@@ -8,15 +8,18 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  icon: {
+    provider: 'iconify' 
+  },
+
   routeRules: {
-    '/api/**': { 
+    '/api/**': {
       proxy: {
         to: `${process.env.NUXT_PUBLIC_BASE_URL}/**`,
-        
-        cookieDomainRewrite: 'localhost' 
+        cookieDomainRewrite: 'localhost'
       }
     },
-    '/upload/**': { 
+    '/upload/**': {
       proxy: { to: `${process.env.NUXT_PUBLIC_BASE_URL}/upload/**` }
     },
   },

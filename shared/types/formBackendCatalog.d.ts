@@ -56,6 +56,8 @@ interface CatalogFullInfoEndpointData {
             items: {
                 links: {
                     self: string,
+                    next: string,
+                    prev: string,
                 }
             }
         }
@@ -100,6 +102,10 @@ interface CatalogFullInfoEndpointData {
     meta: {
         seo: {
             title: string,
+            description: string,
+            keywords: string,
+            text_bottom: string,
+            text_top: string,
         },
         og: {
             "og:tite": string,

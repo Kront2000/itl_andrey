@@ -1,12 +1,5 @@
 <script setup lang='ts'>
 const { data: about, pending } = useLazyFetch<HomeCompanyData>('/api/company');
-
-const cleanText = (html: string | undefined) => {
-    if (html == undefined) {
-        return '';
-    }
-    return html.replace(/<[^>]*>/g, '').trim();
-};
 </script>
 
 <template>

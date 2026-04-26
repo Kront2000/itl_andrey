@@ -18,9 +18,7 @@ interface SharedProductData {
         preview: string,
         image: string,
         stikers: string[],
-        properties: {
-            items: Record<string, { name: string, value: number | string | string[] } | null>
-        }
+        properties: Record<string, { name: string, value: number | string | string[] } | null>
     }
     links: {
         self: string,
