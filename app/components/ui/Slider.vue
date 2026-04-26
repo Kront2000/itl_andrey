@@ -42,7 +42,7 @@ function handleChange() {
 <template>
   <div class="flex flex-col gap-5">
     <p class="text-lg text-black">{{ data.name == 'Розничная цена' ? 'Цена' : data.name }}</p>
-    <div class="w-65 h-13 flex justify-between items-center  rounded-lg border border-blue/30 px-3.5 py-5 relative">
+    <div class="w-full h-13 flex justify-between items-center  rounded-lg border border-blue/30 px-3.5 py-5 relative">
       <p class="font-circe text-sm text-dark-blue/70">{{ sliderValue[0] }}</p>
       <p class="font-circe text-sm text-dark-blue/70">{{ sliderValue[1] }}</p>
       <USlider class="absolute bottom-0 w-[95%] right-1/2 translate-x-1/2" v-model="sliderValue"
