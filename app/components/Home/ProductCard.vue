@@ -9,7 +9,7 @@ const props = defineProps<{
     <div
         class="w-46  md:w-66 p-2 shrink-0 md:p-8 flex md:min-w-66  h-99.75 md:h-124 flex-col border rounded-2xl border-blue/20 hover:border-blue justify-between relative @container">
 
-        <NuxtLink :to="data.links.self" class="absolute inset-0 z-0 shadow-none" aria-label="Открыть товар" />
+        <NuxtLink :to="data.links?.self || '#'" class="absolute inset-0 z-0 shadow-none" aria-label="Открыть товар" />
 
         <NuxtImg :src="data.attributes.preview" :alt="data.attributes.name" loading="lazy" placeholder
             class=" md:w-full aspect-square object-contain" />
@@ -20,13 +20,13 @@ const props = defineProps<{
 
         <div class="flex grow flex-col justify-end gap-2">
 
-            <p class="text-base font-circe hover:text-blue line-clamp-2 h-12" :to="data.links.self">{{
+            <p class="text-base font-circe hover:text-blue line-clamp-2 h-12" :to="data.links?.self || '#'">{{
                 data.attributes.name }}
             </p>
 
             <p v-if="!!data.attributes.product?.stores?.items && !Array.isArray(data.attributes.product.stores.items) && Object.keys(data.attributes.product.stores.items).length > 0"
                 class="text-sm font-circe">
-                В наличии в <NuxtLink :to="data.links.self"
+                В наличии в <NuxtLink :to="data.links?.self || '#'"
                     class="text-sm font-circe text-blue hover:border-b border-dashed relative z-10">
                     {{ Object.keys(data.attributes.product.stores.items).length +
                         (Object.keys(data.attributes.product.stores.items).length == 1 ? ' магазине' : ' магазинах') }}

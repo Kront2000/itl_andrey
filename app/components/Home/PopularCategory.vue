@@ -11,7 +11,7 @@ const { data: hits, pending } = await useLazyFetch<HomePopularCategoryData>('/ap
         </UCarousel>
 
         <UCarousel v-else v-slot="{ item }" :items="hits?.data" :ui="{ item: 'basis-auto' }">
-            <NuxtLink :to="item.links.self" 
+            <NuxtLink :to="item.links?.self || '/'" 
                 class="group w-46 md:w-48 h-56 md:h-60 flex flex-col items-center justify-between">
                 <div class="w-46 md:w-48 h-46 md:h-48 rounded-2xl bg-blue/5 p-8">
                     <NuxtImg :alt="item.attributes.name" placeholder loading="lazy"

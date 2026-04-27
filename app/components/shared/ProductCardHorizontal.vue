@@ -37,7 +37,7 @@ console.log(props.data)
             <!-- БЛОК С ОПИСАНИЕМ -->
             <div class="h-full min-w-0 flex flex-col">
                 <!-- НАЗВАНИЕ -->
-                <span class="text-base min-w-0 font-circe hover:text-blue line-clamp-1" :to="data.links.self">{{
+                <span class="text-base min-w-0 font-circe hover:text-blue line-clamp-1" :to="data.links?.self || '#'">{{
                     data.attributes.name }}
                 </span>
                 <!-- СТРОКА С ОТЗЫВАМИ КОДОМ ТОВАРА И МАГАЗИНАМИ -->
@@ -47,7 +47,7 @@ console.log(props.data)
                             class="text-base text-text-black">{{ article }}</span></span>
                     <!-- МАГАЗИНЫ -->
                     <span v-if="storeCount > 0" class="text-sm min-w-0 font-circe">
-                        В наличии в <NuxtLink :to="data.links.self"
+                        В наличии в <NuxtLink :to="data.links?.self || '#'"
                             class="text-sm font-circe text-blue hover:border-b border-dashed">
                             {{ Object.keys(data.attributes.product.stores.items).length +
                                 (Object.keys(data.attributes.product.stores.items).length == 1 ? ' магазине' : ' магазинах')

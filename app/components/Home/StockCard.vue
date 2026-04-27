@@ -7,7 +7,7 @@ const config = useRuntimeConfig()
 </script>
 
 <template>
-    <NuxtLink  :to="data.links.self" class="flex flex-col gap-6 w-102 h-88 shrink-0">
+    <NuxtLink  :to="data.links?.self || '#'" class="flex flex-col gap-6 w-102 h-88 shrink-0">
         <div class="w-full h-70 relative">
             <NuxtImg :src="data.attributes.images.desktop.src" placeholder loading="lazy"
                 class="w-full h-full object-cover rounded-lg" />

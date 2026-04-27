@@ -13,7 +13,7 @@ const config = useRuntimeConfig()
         <UCarousel
             :ui="{ dots: 'bottom-3 md:bottom-11 left-4 lg:left-17 w-fit gap-1 ', dot: ['w-1 h-1 bg-blue/20 ui-active:w-4',], }" dots
             v-slot="{ item }" :items="slider?.data" class="w-full ">
-            <NuxtLink class="" :to="item.links.self">
+            <NuxtLink class="" :to="item.links?.self || '/'">
                 <div class="w-full h-41 md:h-80 bg-dark-yellow overflow-hidden rounded-lg relative">
                     <div
                         class="absolute flex flex-col left-0 top-0 px-4 py-8 lg:p-16 gap-2 lg:gap-6 2xl:gap-9 max-w-[50%] sm:max-w-full">

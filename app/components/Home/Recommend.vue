@@ -22,7 +22,7 @@ const { data: products, pending: pendingOfProdcts } = useLazyFetch<HomeHitsProdu
     <div class="flex flex-col gap-4">
         <h3 class="font-circe text-xl md:text-3xl">Рекомендуем</h3>
         <UCarousel v-slot="{ item }" :items="hits?.data" :ui="{ item: 'basis-auto' }">
-            <UiCategoryButton :active="isActive?.id == item.id ? true : false" "
+            <UiCategoryButton :active="isActive?.id == item.id ? true : false" 
                 @click="isActive = item">
                 {{ item.attributes.name }}
             </UiCategoryButton>

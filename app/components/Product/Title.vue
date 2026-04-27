@@ -4,7 +4,7 @@ import type { ProductData } from '~~/shared/types/formBackendProduct';
 
 const props = defineProps<{
     product: ProductData | undefined,
-    pending: boolean ,
+    pending: boolean,
     breadcrumb: BreadcrumbItem[] | undefined;
 }>()
 
@@ -42,8 +42,8 @@ const article = props.product?.data.attributes.properties?.cml2Article?.value;
         </div>
 
         <!-- ЛОГО -->
-        <NuxtImg class="h-9 max-w-25.5 object-contain"
-            :src="product?.data.attributes.brand[0]?.attributes.images.preview" :to="product?.links.self" />
+        <NuxtImg v-if="product?.data.attributes.brand && product?.data.attributes.brand[0]?.attributes.images.preview" class="h-9 max-w-25.5 object-contain"
+            :src="product?.data.attributes.brand[0]?.attributes.images.preview"  />
     </div>
 </template>
 
