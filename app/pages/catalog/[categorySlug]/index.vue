@@ -1,13 +1,12 @@
 <script setup lang='ts'>
+import MobCatalogButton from '~/components/Catalog/MobCatalogButton.vue';
 
-const value = ref<'string' | 'grid'>('grid')
 
-const route = useRoute()
-const router = useRouter()
+const value = ref<'string' | 'grid'>('grid');
 
-const { count, products, loadMore } = await useCatalogProducts();
+const { count, products, loadMore, pending: fullDataPending } = await useCatalogProducts();
 
-const { pending, breadcrumb, thisCategory, subcategories, meta } = await useAllCategoryCatalog();
+const { pending, breadcrumb, thisCategory, subcategories} = await useAllCategoryCatalog();
 
 </script>
 
@@ -21,65 +20,24 @@ const { pending, breadcrumb, thisCategory, subcategories, meta } = await useAllC
       :count="thisCategory?.data.attributes.count" :categories="subcategories" />
 
     <div class="w-full flex gap-7">
-      <div class="w-66 hidden md:flex flex-col gap-6 ">
+      <!-- ФИЛЬТРЫ -->
+      <CatalogFilters :pending="pending" :filter="thisCategory?.included.filter.attributes"/>
 
-        <UiSlider v-if="thisCategory?.included.filter.attributes.prices[0]"
-          :data="thisCategory?.included.filter.attributes.prices[0]" />
-
-        <template v-for="value in thisCategory?.included.filter.attributes.properties">
-          <UiSlider v-if="value.type == 'N' && isObjectProperty(value)" :data="value" />
-          <UiCheckers v-else-if="isListProperty(value)" :data="value" />
-        </template>
-      </div>
 
       <div class="grow flex flex-col items-center gap-12">
+
+        <!-- БЛОК ПЕРЕД ТОВАРАМИ (Сортировка, фильтры для телефона, переключение ввида карточек) -->
         <div class="w-full flex justify-between">
           <UiSorter />
           <div class="flex gap-2">
-            <USlideover :ui="{ content: 'max-w-full w-fit p-3' }">
-              <UButton class="md:hidden" label="Фильтры" icon="i-lucide-sliders-horizontal" color="neutral"
-                variant="outline" />
-              <template #content>
-                <div class="w-66 flex flex-col gap-6">
-                  <UScrollArea class="w-full h-screen">
-                    <div class="w-full h-fit shrink-0">
-                      <UiSlider v-if="thisCategory?.included.filter.attributes.prices[0]"
-                        :data="thisCategory?.included.filter.attributes.prices[0]" />
-
-                      <template v-for="value in thisCategory?.included.filter.attributes.properties">
-                        <UiSlider v-if="value.type == 'N' && isObjectProperty(value)" :data="value" />
-                        <UiCheckers v-else-if="isListProperty(value)" :data="value" />
-                      </template>
-                    </div>
-
-                  </UScrollArea>
-
-                </div>
-              </template>
-            </USlideover>
+            <MobCatalogButton :pending="pending" :filter="thisCategory?.included.filter.attributes"/>
             <UiSwitch :value="value" @switch="value = value == 'string' ? 'grid' : 'string'" />
           </div>
-
         </div>
 
-        <div class=" gap-6"
-          :class="{ 'w-full max-w-126.25 md:max-w-full grid grid-cols-2 xl:grid-cols-3 2xl-3xl:grid-cols-4 3xl:grid-cols-5': value == 'grid', 'flex flex-col min-w-0': value == 'string' }">
+        <CatalogItemsContainer :pending="fullDataPending" :count="count" :products="products" :loadMore="loadMore" :value="value"/>
 
-          <HomeProductCard v-if="value == 'grid'" v-for="value in products" :data="value" class="w-full!"/>
-          <SharedProductCardHorizontal v-else-if="value == 'string'" v-for="value in products" :data="value" />
-        </div>
-
-        <div class="w-full flex justify-between">
-          <UiButton class="py-2.5 px-5 xl:w-138 border-blue/20!" is="button" content="Показать ещё" type="outline"
-            @click="loadMore" />
-          <UiPagination :count-of-products="count" />
-        </div>
-
-        <section class="flex flex-col gap-9 mt-3">
-          <h3 class="text-2xl font-circe text-text-black">{{ meta?.seo.title }}</h3>
-          <div class="description flex flex-col w-full gap-7" v-html="thisCategory?.meta.seo.text_bottom">
-          </div>
-        </section>
+        <CatalogDescription :category="thisCategory" :pending="pending"/>
       </div>
     </div>
 

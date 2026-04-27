@@ -67,24 +67,8 @@ interface CatalogFullInfoEndpointData {
     },
     included: {
         filter: {
-            attributes: {
-                prices: {
-                    name: string,
-                    type: string,
-                    code: string,
-                    values: NTypeValues
-                }[],
-                properties: {
-                    name: string,
-                    type: string,
-                    code: string,
-                    values: LTypeValues[] | NTypeValues,
-                    expanded: boolean,
-                    toggle: boolean,
-                }[],
-            }
-
-        },
+            attributes: FilterAttributes,
+        }   
         items: SharedProductData[],
         "reviews-statistics": {
             id: number,
@@ -125,6 +109,23 @@ interface CatalogFullInfoEndpointData {
         }[],
         csrf: string,
     }
+}
+
+interface FilterAttributes {
+    prices: {
+        name: string,
+        type: string,
+        code: string,
+        values: NTypeValues
+    }[],
+    properties: {
+        name: string,
+        type: string,
+        code: string,
+        values: LTypeValues[] | NTypeValues,
+        expanded: boolean,
+        toggle: boolean,
+    }[],
 }
 
 interface LTypeValues {

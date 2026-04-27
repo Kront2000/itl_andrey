@@ -13,20 +13,27 @@ interface ProductData {
 
 interface ProductResource {
   id: number;
-  attributes: {
-    name: string;
-    article: string;
-    description: string; 
-    product: ProductCommerce;
-    images: ProductImages;
-    properties: Record<string, { name: string, value: number | string | string[] } | null>;
-    tabs: ProductTab[];
-    stikers: { value: string[] }; 
-    brand: Brand[];
-  };
+  attributes: Attributes;
 }
 
-interface Brand{
+interface PropertyItem {
+    name: string;
+    value: number | string | string[];
+}
+
+interface Attributes {
+  name: string;
+  article: string;
+  description: string;
+  product: ProductCommerce;
+  images: ProductImages;
+  properties: Record<string, { name: string, value: number | string | string[] } | null>;
+  tabs: ProductTab[];
+  stikers: { value: string[] };
+  brand: Brand[];
+}
+
+interface Brand {
   id: number,
   attributes: {
     name: string,
@@ -45,15 +52,11 @@ interface ProductCommerce {
   currency: string;
   price: {
     value: number;
-    valueFormatted: string; 
+    valueFormatted: string;
   };
-  stores: StoreStock[]; 
+  stores: StoreStock[];
 }
 
-interface PropertyItem {
-  name: string;
-  value: string | number;
-}
 
 // Вкладки (Доставка, Оплата, Гарантия)
 interface ProductTab {

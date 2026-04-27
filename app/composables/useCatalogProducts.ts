@@ -49,5 +49,5 @@ const loadMore = () => {
   }
 };
 
-return {products, count: fullData.value?.fullData.data.attributes.count, loadMore}
+return {products, count: fullData.value?.fullData.data.attributes.count, loadMore, pending: fullDataPending}
 }
