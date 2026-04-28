@@ -92,7 +92,7 @@ interface CatalogFullInfoEndpointData {
             text_top: string,
         },
         og: {
-            "og:tite": string,
+            "og:title": string,
             "og:type": string,
             "og:site_name": string,
             "og:description": string,

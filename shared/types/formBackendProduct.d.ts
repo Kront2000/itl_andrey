@@ -11,14 +11,38 @@ interface ProductData {
   meta: MetaInformation;
 }
 
+interface MetaInformation {
+  settings: {
+    pate_type: "type_1",
+  },
+  info: {
+    delivery: {
+      delivery: string,
+    },
+  },
+  seo: {
+    title: string,
+    description: string
+  },
+  og: {
+    "og:title": string,
+    "og:type": string,
+    "og:site_name": string,
+    "og:description": string,
+    "og:url": string,
+    "og:image": string,
+  }
+}
+
+
 interface ProductResource {
   id: number;
   attributes: Attributes;
 }
 
 interface PropertyItem {
-    name: string;
-    value: number | string | string[];
+  name: string;
+  value: number | string | string[];
 }
 
 interface Attributes {
