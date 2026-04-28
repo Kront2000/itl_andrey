@@ -1,64 +1,97 @@
-# Nuxt Starter Template
+# О проекте: Frontend-часть интернет-магазина (ITL B2C)
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+Данный проект разработан в рамках тестового задания (стажировки) на позицию Frontend Developer. Представляет собой клиентскую часть интернет-магазина, построенную на современном стеке вокруг экосистемы Vue и Nuxt.
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
+Проект сфокусирован на компонентном подходе, строгой типизации, производительности (lazy loading, SSR) и синхронизации состояния приложения с URL.
 
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+## 🛠 Технологический стек и зависимости
 
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png" width="830" height="466">
-  </picture>
-</a>
+* **Фреймворк:** Nuxt 4 / Vue 3 (Composition API, `<script setup>`)
+* **Язык:** TypeScript
+* **UI & Стилизация:** Tailwind CSS, @nuxt/ui
+* **Работа с изображениями:** @nuxt/image
+* **Иконки:** @nuxt/icon / Iconify
+* **Пакетный менеджер:** npm (рекомендуется использование Node.js 20+)
 
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
+## ✨ Реализованный функционал
 
-## Quick Start
+1. **Главная страница:**
+    * Сверстана по макету с адаптацией под разные устройства.
+    * Реализована отложенная загрузка блоков (Lazy Loading) с использованием скелетонов (`<USkeleton>`) во время ожидания ответа от API.
+    * Реализованы слайдеры для вывода товаров и категорий (хиты продаж, распродажа, рекомендуемое).
+2. **Каталог товаров:**
+    * Вывод сетки товаров с возможностью переключения вида (плитка / список).
+    * Синхронизация состояния фильтров, сортировки и пагинации с URL (`query params`) — при обновлении страницы или передаче ссылки состояние сохраняется.
+    * Инкапсуляция логики фильтрации и подгрузки в переиспользуемые composables (`useCatalogProducts`, `useAllCategoryCatalog`).
+3. **Детальная страница товара:**
+    * Отображение основной информации, галереи изображений (слайдер на Embla/UI), переключаемых вкладок характеристик и описания.
+    * Формирование динамических хлебных крошек.
+4. **Архитектурные решения:**
+    * **Обход CORS:** Проблема с CORS решена технически корректно через проксирование запросов в `routeRules` (`nuxt.config.ts`) и частичное использование серверного слоя `server/api`.
+    * **Выделение бизнес-логики:** Логика страниц вынесена в `composables`, а вспомогательные функции (парсинг текста, крошки) — в `utils`.
+5. **SEO:**
+    * Базовая реализация.
 
-```bash [Terminal]
-npm create nuxt@latest -- -t ui
+## 📁 Структура проекта
+
+Проект организован по стандартам Nuxt:
+
+* `/app/components/` — Переиспользуемые UI-компоненты (UI, иконки) и специфичные для домена блоки (Home, Catalog, Product).
+* `/app/pages/` — Файловый роутинг страниц (`index.vue`, `catalog`, динамические роуты `[categorySlug]` и `[productSlug]`).
+* `/app/composables/` — Изолированная бизнес-логика (например, `useProduct.ts`).
+* `/app/utils/` — Вспомогательные функции (`cleanText`, функции-тайпгарды).
+* `/server/api/` — Серверные роуты Nuxt (BFF - Backend for Frontend) для получения данных.
+* `/shared/types/` — Глобальные интерфейсы TypeScript для строгой типизации ответов API.
+
+## 🚀 Запуск проекта
+## 1.Клонируйте репозиторий:
+```bash
+git clone https://github.com/Kront2000/itl_andrey.git
+cd itl_andrey
+```
+## 2.Настройте переменные окружения: Создайте файл .env в корне проекта и добавьте базовый url:
+```bash
+NUXT_PUBLIC_BASE_URL=https://api.retail.itl.digital
 ```
 
-## Deploy your own
+### Локальная разработка
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
+1. Установите зависимости:
+```bash
+npm install
+```
+2. Запустите сервер разработки:
+```bash
+npm run dev
+```
 
-## Setup
+### Сборка для production
 
-Make sure to install the dependencies:
+1. Соберите проект:
+```bash
+npm run build
+```
+2. Запустите собранное приложение:
 
 ```bash
-pnpm install
+npm run preview
 ```
 
-## Development Server
+## Примечания
+* В проекте решено использовать Nuxt UI, так как это стандарт для создания интерфейса в Nuxt. Подключение одной библиотеки позволило быстро и надёжно реализовать такие компоненты, как: слайдеры, хлебные крошки, чекбоксы, радио-группы и т. д. Однако изначально библиотека установилась криво, и компоненты ни в какую не хотели настраиваться через app.config. Поэтому слайдер на главной странице реализован с использованием костылей и требует переписывания. Только потом получилось решить эту проблему полным пересозданием проекта с нуля и переносом имеющихся файлов. Также теперь можно использовать UButton и, возможно, полностью убрать самописный компонент UiButton.
+* На данный момент seo сделано базово и на скорую руку. Требует улучшения
 
-Start the development server on `http://localhost:3000`:
+## 📈 Что нучно улучшить в будущем:
 
-```bash
-pnpm dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-pnpm build
-```
-
-Locally preview production build:
-
-```bash
-pnpm preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-
-## Renovate integration
-
-Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.
+* Древовидное модальное окно каталога  
+* SEO-оптимизация  
+* Отметка о просмотре товара: Добавить фоновый POST-запрос на endpoint /viewed/ при монтировании страницы продукта для работы блока "Вы смотрели".  
+* Убрать самописные Api
+* Поменять оставшиеся img на NuxtImg
+* Увеличить количество и качество проверок данных приходящих с бэкенда
+* Дописать все скелетоны
+* Улучшить семантику
+* Добавить label к кнопкам
+* Вынести общие повторяющиеся типы
+* Вынести компонент ProductCard в папку shared
+* Поменять ненужные теги span
