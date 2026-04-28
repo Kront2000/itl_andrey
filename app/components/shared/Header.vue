@@ -7,7 +7,10 @@
   <header class="w-full max-w-[1920px] mx-auto px-[2vw] py-[2vw] flex flex-col gap-7 bg-blue/5 md:md:bg-white">
     <div class="flex gap-6 w-full justify-between items-center">
 
-      <img class="hidden lg:block" src="/logo.svg" alt="">
+      <NuxtLink :to="'/'">
+        <img class="hidden lg:block" src="/logo.svg" alt="">
+      </NuxtLink>
+      
 
       <UiButton class="hidden sm:flex" is="NuxtLink" content="Каталог товара" to="/catalog">
         <IconsMenu class="w-4 h-4" />

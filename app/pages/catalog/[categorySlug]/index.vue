@@ -1,12 +1,26 @@
 <script setup lang='ts'>
 import MobCatalogButton from '~/components/Catalog/MobCatalogButton.vue';
 
-
 const value = ref<'string' | 'grid'>('grid');
 
 const { count, products, loadMore, pending: fullDataPending } = await useCatalogProducts();
 
-const { pending, breadcrumb, thisCategory, subcategories} = await useAllCategoryCatalog();
+const { pending, breadcrumb, thisCategory, subcategories, meta: seo} = await useAllCategoryCatalog();
+
+const cleanDescription = computed(() => {
+    const desc = seo?.seo?.description || thisCategory?.data?.attributes?.description || ''
+    return desc.replace(/<[^>]*>/g, '').slice(0, 160) // Убираем HTML и ограничиваем длину
+})
+
+useSeoMeta({
+    title: () => seo?.seo?.title || thisCategory?.data?.attributes?.name || 'Товар',
+    ogTitle: () => seo?.og?.['og:title'] || seo?.seo?.title || thisCategory?.data?.attributes?.name,
+    description: () => cleanDescription.value,
+    ogDescription: () => seo?.og?.['og:description'] || cleanDescription.value,
+    ogImage: () => seo?.og?.['og:image'] || '',
+    // Можно добавить тип карточки для соцсетей
+    twitterCard: 'summary_large_image',
+})
 
 </script>
 

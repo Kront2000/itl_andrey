@@ -1,10 +1,10 @@
 <script setup lang='ts'>
-import type { Attributes, PropertyItem } from '~~/shared/types/formBackendProduct';
+import type { Attributes, ProductTab, PropertyItem } from '~~/shared/types/formBackendProduct';
 const prop = defineProps<{
     attributes: Attributes | undefined
 }>()
 const list = computed(() => {
-    return [{ name: 'Описание', value: prop.attributes?.description }, { name: 'Характеристики' }, ...(propertiesArray.value || [])]
+    return [{ title: 'Описание', info: prop.attributes?.description } as ProductTab, { title: 'Характеристики' } as ProductTab, ...(tabsArray.value || [])]
 })
 const active = ref('Описание');
 
@@ -12,6 +12,12 @@ const propertiesArray = computed(() => {
     const props = prop.attributes?.properties;
     if (!props) return [] as PropertyItem[];
     return Array.isArray(props) ? props as PropertyItem[] : Object.values(props) as PropertyItem[];
+});
+
+const tabsArray = computed(() => {
+    const props = prop.attributes?.tabs;
+    if (!props) return [] as ProductTab[];
+    return Array.isArray(props) ? props as ProductTab[] : Object.values(props) as ProductTab[];
 });
 
 const firstHalf = computed(() => {
@@ -30,9 +36,9 @@ const secondHalf = computed(() => {
     <section class="w-full flex flex-col gap-9">
         <UCarousel :key="list.length" class="border-b border-b-blue/20  w-full" v-slot="{ item }" :items="list"
             :ui="{ container: 'flex gap-4', item: 'basis-auto' }">
-            <button @click="active = item.name" class="py-5 px-4 transition duration-300"
-                :class="{ 'text-text-black': active != item.name, 'text-blue border-b border-b-blue': active == item.name }">
-                {{ item.name }}
+            <button @click="active = item.title" class="py-5 px-4 transition duration-300"
+                :class="{ 'text-text-black': active != item.title, 'text-blue border-b border-b-blue': active == item.title }">
+                {{ item.title }}
             </button>
         </UCarousel>
 
@@ -44,7 +50,7 @@ const secondHalf = computed(() => {
                 <ProductProperty :properties="secondHalf" />
             </div>
         </div>
-        <div v-else v-html="list.find((item) => item.name == active)?.value" class="w-full container">
+        <div v-else v-html="list.find((item) => item.title == active)?.info" class="w-full container">
         </div>
     </section>
 </template>
