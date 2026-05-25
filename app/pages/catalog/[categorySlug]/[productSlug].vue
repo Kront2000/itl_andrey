@@ -1,8 +1,10 @@
 <script setup lang='ts'>
+import Viewed from '~/components/Product/Viewed.vue'
+
 const { breadcrumb, pending, productInfo, propertiesArray, seo } = await useProduct()
 const cleanDescription = computed(() => {
     const desc = seo?.seo?.description || productInfo?.data?.attributes?.description || ''
-    return desc.replace(/<[^>]*>/g, '').slice(0, 160) 
+    return desc.replace(/<[^>]*>/g, '').slice(0, 160)
 })
 
 useSeoMeta({
@@ -20,7 +22,8 @@ useSeoMeta({
         <!-- ЗАГОЛОВОК -->
         <ProductTitle :product="productInfo" :breadcrumb="breadcrumb" :pending="pending" />
 
-        <div class="flex gap-24">
+        <!-- ПЕРВАЯ ЧАСТЬ С ИНФОРМАЦИЕЙ О ПРОДУКТЕ -->
+        <div class="flex gap-24 h-fit items-start">
             <!-- ЛЕВАЯ ЧАСТЬ -->
             <div class="flex flex-col grow gap-18 min-w-0">
                 <!-- ЗАГОЛОВОК -->
@@ -34,17 +37,25 @@ useSeoMeta({
                 <!-- ВСЯ ИНФА -->
                 <ProductTabs :attributes="productInfo?.data.attributes" />
             </div>
-
-
             <!-- ПРАВАЯ ЧАСТЬ -->
-            <div class="w-102 h-155 bg-blue/20 shrink-0">
-
-            </div>
+            <ProductPurchaseBlock :data="productInfo" />
         </div>
 
+        <!-- ВТОРАЯ ЧАСТЬ С ОТЗЫВАМИ -->
+        <div class="flex gap-24">
+            <!-- левая часть -->
+            <div class="flex flex-col grow gap-18 min-w-0">
+                <ProductReviews />
+            </div>
 
+            <!-- правая часть -->
+            <ProductReviewsStatistics />
+        </div>
 
+        <!-- С этим товаром покупают -->
+        <ProductAlsoBought />
 
+        <ProductViewed />
     </div>
 </template>
 

@@ -119,15 +119,19 @@ interface HeroHitsCategoryData {
         id: number,
         attributes: {
             name: string,
-        }
+        },
         links: {
             self: string
+        },
+        included: {
+            "reviews-statistics": ReviewStaticData[]
         }
     
 }
 
 interface HeroHitsData {
-    data: HeroHitsCategoryData[];
+    data: HeroHitsCategoryData[],
+    
 }
 
 

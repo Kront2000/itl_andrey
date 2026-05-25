@@ -4,7 +4,8 @@
         products: SharedProductData[] | undefined,
         loadMore: () => void
         count: number | undefined
-        pending: boolean
+        pending: boolean,
+        reviewsMap: Map<number,  number>
     }>()
 </script>
 
@@ -12,7 +13,7 @@
     <div class=" gap-6"
         :class="{ 'w-full max-w-126.25 md:max-w-full grid grid-cols-2 xl:grid-cols-3 2xl-3xl:grid-cols-4 3xl:grid-cols-5': value == 'grid', 'flex flex-col min-w-0': value == 'string' }">
 
-        <HomeProductCard v-if="value == 'grid'" v-for="value in products" :data="value" class="w-full!" />
+        <SharedProductCard v-if="value == 'grid'" v-for="value in products" :data="value" class="w-full!" :reviews-statistics="reviewsMap.get(value.id)" />
         <SharedProductCardHorizontal v-else-if="value == 'string'" v-for="value in products" :data="value" />
     </div>
 

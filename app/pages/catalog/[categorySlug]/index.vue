@@ -3,13 +3,13 @@ import MobCatalogButton from '~/components/Catalog/MobCatalogButton.vue';
 
 const value = ref<'string' | 'grid'>('grid');
 
-const { count, products, loadMore, pending: fullDataPending } = await useCatalogProducts();
+const { count, products, loadMore, pending: fullDataPending, reviewsMap } = await useCatalogProducts();
 
 const { pending, breadcrumb, thisCategory, subcategories, meta: seo} = await useAllCategoryCatalog();
 
 const cleanDescription = computed(() => {
     const desc = seo?.seo?.description || thisCategory?.data?.attributes?.description || ''
-    return desc.replace(/<[^>]*>/g, '').slice(0, 160) // Убираем HTML и ограничиваем длину
+    return desc.replace(/<[^>]*>/g, '').slice(0, 160) 
 })
 
 useSeoMeta({
@@ -18,7 +18,6 @@ useSeoMeta({
     description: () => cleanDescription.value,
     ogDescription: () => seo?.og?.['og:description'] || cleanDescription.value,
     ogImage: () => seo?.og?.['og:image'] || '',
-    // Можно добавить тип карточки для соцсетей
     twitterCard: 'summary_large_image',
 })
 
@@ -49,7 +48,7 @@ useSeoMeta({
           </div>
         </div>
 
-        <CatalogItemsContainer :pending="fullDataPending" :count="count" :products="products" :loadMore="loadMore" :value="value"/>
+        <CatalogItemsContainer :reviews-map="reviewsMap" :pending="fullDataPending" :count="count" :products="products" :loadMore="loadMore" :value="value"/>
 
         <CatalogDescription :category="thisCategory" :pending="pending"/>
       </div>

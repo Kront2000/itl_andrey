@@ -20,6 +20,7 @@ const tabsArray = computed(() => {
     return Array.isArray(props) ? props as ProductTab[] : Object.values(props) as ProductTab[];
 });
 
+//Утилиты для разделения характеристик на 2 колонки
 const firstHalf = computed(() => {
     const halfIndex = Math.ceil(propertiesArray.value.length / 2);
     return propertiesArray.value.slice(0, halfIndex);

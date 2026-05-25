@@ -24,3 +24,11 @@ interface SharedProductData {
         self: string,
     }
 }
+
+interface ReviewStatic {
+  id: number,
+  attributes: {
+    rating: number
+  },
+  count: number,
+}

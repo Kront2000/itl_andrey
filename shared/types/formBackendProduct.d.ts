@@ -1,3 +1,4 @@
+import type { Interface } from "node:readline";
 import type { StringMappingType } from "typescript"
 
 interface ProductData {
@@ -51,10 +52,35 @@ interface Attributes {
   description: string;
   product: ProductCommerce;
   images: ProductImages;
+  tizers: Tizers[];
   properties: Record<string, { name: string, value: number | string | string[] } | null>;
   tabs: ProductTab[];
   stikers: { value: string[] };
   brand: Brand[];
+  sale: Sale[];
+}
+
+interface Tizers {
+  id: number,
+  attributes: {
+    name: string,
+    preview_text: string,
+  },
+  images: {
+    preview: string,
+  }
+
+
+}
+
+interface Sale {
+  id: string,
+  attributes: {
+    name: string,
+  },
+  self: {
+    link: string,
+  }
 }
 
 interface Brand {
@@ -108,4 +134,37 @@ interface StoreDetail {
   address: string;
   phone: string;
   schedule: string;
+}
+
+interface ProductReviewsData {
+  data: Review[],
+  links: {
+    self: string,
+  }
+}
+
+interface Review {
+  id: number,
+  attributes: {
+    "created_at": string,
+    author: string,
+    rating: number,
+    text: string,
+    advantages: string,
+    disadvantages: string,
+    bought: boolean,
+    user_experience: string,
+  }
+}
+
+interface ReviewStaticData {
+  data: {
+    id: number,
+    attributes: {
+      count: number,
+    }
+  }[],
+  meta: {
+    rating: number
+  }
 }

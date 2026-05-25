@@ -16,6 +16,13 @@ const { data: products, pending: pendingOfProdcts } = useLazyFetch<HomeHitsProdu
     watch: [isActive]
 })
 
+const reviewsMap = computed(() => {
+    const map = new Map<number, number>();
+    products.value?.included?.['reviews-statistics']?.forEach(review => {
+        map.set(review.id, review.attributes.rating);
+    });
+    return map;
+});
 </script>
 
 <template>
@@ -33,7 +40,7 @@ const { data: products, pending: pendingOfProdcts } = useLazyFetch<HomeHitsProdu
         </UCarousel>
 
         <UCarousel v-else v-slot="{ item }" :items="products?.data" :ui="{ item: 'basis-auto' }">
-            <HomeProductCard class="w-46 md:w-66" :data="item" />  
+            <SharedProductCard :reviews-statistics="reviewsMap.get(item.id)" class="w-46 md:w-66" :data="item" />  
         </UCarousel>
 
 

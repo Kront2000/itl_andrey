@@ -49,5 +49,14 @@ const loadMore = () => {
   }
 };
 
-return {products, count: fullData.value?.fullData.data.attributes.count, loadMore, pending: fullDataPending}
+const reviewsMap = computed(() => {
+    const map = new Map<number, number>();
+    fullData.value?.fullData.included?.['reviews-statistics']?.forEach(review => {
+        map.set(review.id, review.attributes.rating);
+    });
+    return map;
+});
+
+return {products, count: fullData.value?.fullData.data.attributes.count, loadMore, pending: fullDataPending, reviewsMap}
 }
+

@@ -1,6 +1,7 @@
 <script setup lang='ts'>
 const props = defineProps<{
-    data: SharedProductData
+    data: SharedProductData,
+    reviewsStatistics?: number,
 }>()
 
 </script>
@@ -11,30 +12,35 @@ const props = defineProps<{
 
         <NuxtLink :to="data.links?.self || '#'" class="absolute inset-0 z-0 shadow-none" aria-label="Открыть товар" />
 
-        <NuxtImg :src="data.attributes.preview" :alt="data.attributes.name" loading="lazy" placeholder
+        <NuxtImg :src="data.attributes?.preview" :alt="data.attributes?.name" loading="lazy" placeholder
             class=" md:w-full aspect-square object-contain" />
 
         <div class="absolute top-2 md:top-8 left-2 md:left-8 flex flex-col gap-1">
-            <UiPropertySticker v-for="value in data.attributes.stikers" :sticker="value"/>
+            <UiPropertySticker v-for="value in data.attributes?.stikers" :sticker="value"/>
         </div>
 
         <div class="flex grow flex-col justify-end gap-2">
 
+            <div v-if="reviewsStatistics" class="flex items-center gap-1.5">
+                <IconsStar class="text-yelow"/>
+                <p class="text-sm text-text-black/90">{{ reviewsStatistics }}</p>
+            </div>
+
             <p class="text-base font-circe hover:text-blue line-clamp-2 h-12" :to="data.links?.self || '#'">{{
-                data.attributes.name }}
+                data.attributes?.name }}
             </p>
 
-            <p v-if="!!data.attributes.product?.stores?.items && !Array.isArray(data.attributes.product.stores.items) && Object.keys(data.attributes.product.stores.items).length > 0"
+            <p v-if="!!data.attributes.product?.stores?.items && !Array.isArray(data.attributes.product.stores?.items) && Object.keys(data.attributes.product.stores?.items).length > 0"
                 class="text-sm font-circe">
                 В наличии в <NuxtLink :to="data.links?.self || '#'"
                     class="text-sm font-circe text-blue hover:border-b border-dashed relative z-10">
-                    {{ Object.keys(data.attributes.product.stores.items).length +
-                        (Object.keys(data.attributes.product.stores.items).length == 1 ? ' магазине' : ' магазинах') }}
+                    {{ Object.keys(data.attributes.product.stores?.items).length +
+                        (Object.keys(data.attributes.product.stores?.items).length == 1 ? ' магазине' : ' магазинах') }}
                 </NuxtLink>
             </p>
             <p v-else class="text-base font-circe">Нет в наличии</p>
 
-            <p class="text-6 font-circe">{{ data.attributes.product.price.valueFormatted }}</p>
+            <p class="text-6 font-circe">{{ data.attributes.product.price?.valueFormatted }}</p>
 
             <div v-if="data.attributes.product?.stores?.items != null" class="flex justify-between">
                 <UiButton is="button" class="text-text-black gap-1! px-2!" text="sm" content="В корзину">
