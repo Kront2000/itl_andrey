@@ -1,147 +1,97 @@
-interface WideCatalog {
-    data: {
-        id: number,
-        attributes: {
-            name: string,
-            images: {
-                desktop: {
-                    src: string,
-                },
-                preview: string,
-            },
-            text: {
-                title: string,
-                text: string,
-            },
-            styles: {
-                text_position: string,
-                text_color: string
-            }
-        }
-    }[]
+
+ interface WideCatalog {
+    data: WideCardItem[];
 }
 
-interface CatalogMainEndpointData {
-    data: CatalogTitleCard[]
+ interface CatalogMainEndpointData {
+    data: CatalogTitleCard[];
 }
 
-interface CatalogTitleCard {
-    id: number,
+ interface CatalogTitleCard {
+    id: number;
     attributes: {
-        name: string,
-        parentId: number,
-        count: number,
-        img: string,
-    },
-    links: {
-        self: string,
-    }
+        name: string;
+        parentId: number;
+        count: number;
+        img: string;
+    };
+    links: ResourceLink;
 }
 
-interface CatalogFullInfoEndpointData {
+ interface CatalogFullInfoEndpointData {
     data: {
-        id: number,
+        id: number;
         attributes: {
-            name: string,
-            count: number,
-            image: string,
+            name: string;
+            count: number;
+            image: string;
             images: {
-                preview: {
-                    src: string,
-                }
-            },
-            description: string,
-        },
+                preview: { src: string };
+            };
+            description: string;
+        };
         relationships: {
             items: {
-                links: {
-                    self: string,
-                    next: string,
-                    prev: string,
-                }
-            }
-        }
-    },
-    links: {
-        self: string
-    },
+                links: ResourceLink & {
+                    next: string;
+                    prev: string;
+                };
+            };
+        };
+    };
+    links: ResourceLink;
     included: {
         filter: {
-            attributes: FilterAttributes,
-        }   
-        items: SharedProductData[],
+            attributes: FilterAttributes;
+        };
+        items: SharedProductData[];
         "reviews-statistics": {
-            id: number,
+            id: number;
             attributes: {
-                rating: number,
-                count: number,
-            }
-        }[],
+                rating: number;
+                count: number;
+            };
+        }[];
         stores: {
-            items: Record<string, { name: string, address: string, phone: string, schedule: string } | null>
-        },
-
-
-    },
+            items: Record<string, StoreDetail | null>;
+        };
+    };
     meta: {
-        seo: {
-            title: string,
-            description: string,
-            keywords: string,
-            text_bottom: string,
-            text_top: string,
-        },
-        og: {
-            "og:title": string,
-            "og:type": string,
-            "og:site_name": string,
-            "og:description": string,
-            "og:url": string,
-            "og:image": string,
-        },
+        seo: SEOMeta;
+        og: OpenGraphMeta;
         breadcrumb: {
-            attributes: {
-                name: string,
-            },
-            links: {
-                self: string,
-            }
-        }[],
-        csrf: string,
-    }
+            attributes: { name: string };
+            links: ResourceLink;
+        }[];
+        csrf: string;
+    };
 }
 
-interface FilterAttributes {
+ interface FilterAttributes {
     prices: {
-        name: string,
-        type: string,
-        code: string,
-        values: NTypeValues
-    }[],
+        name: string;
+        type: string;
+        code: string;
+        values: NTypeValues;
+    }[];
     properties: {
-        name: string,
-        type: string,
-        code: string,
-        values: LTypeValues[] | NTypeValues,
-        expanded: boolean,
-        toggle: boolean,
-    }[],
+        name: string;
+        type: string;
+        code: string;
+        values: LTypeValues[] | NTypeValues;
+        expanded: boolean;
+        toggle: boolean;
+    }[];
 }
 
-interface LTypeValues {
-    id: string,
-    name: string,
-    xml_id: string,
-    value: string,
+ interface LTypeValues {
+    id: string;
+    name: string;
+    xml_id: string;
+    value: string;
 }
 
-interface NTypeValues {
-    min: {
-        id: string,
-        value: number,
-    },
-    max: {
-        id: string,
-        value: number,
-    }
+ interface NTypeValues {
+    min: { id: string; value: number };
+    max: { id: string; value: number };
 }

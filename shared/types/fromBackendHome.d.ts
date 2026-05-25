@@ -1,289 +1,194 @@
+
+
 interface FooterMenuData {
     data: {
-        help: {
-            title: string,
-            submenu: {
-                id: number,
-                name: string,
-                links: {
-                    self: string,
-                }
-            }[][]
-        },
-        company: {
-            title: string,
-            submenu: {
-                id: number,
-                name: string,
-                links: {
-                    self: string,
-                }
-            }[][]
-        },
-    }
+        help: FooterMenuSection;
+        company: FooterMenuSection;
+    };
 }
 
-interface FooterStoresData {
-    data: {
-        id: number,
-        attributes: {
-            name: string,
-            address: string,
-            schedule: {
-                TEXT: string,
-            }
-        }
-    }[]
+interface FooterMenuSection {
+    title: string;
+    submenu: {
+        id: number;
+        name: string;
+        links: ResourceLink;
+    }[][];
 }
 
-interface FooterPhonesData {
+ interface FooterStoresData {
     data: {
-        id: number, attributes: {
-            name: string
-        }
-    }[]
-}
-interface FooterSocialMediaData {
-    data: {
-        id: number, attributes: {
-            name: string
-        }, links: {
-            self: string;
-        }
-    }[]
-}
-interface FooterInfoData {
-    data: {
-        id: number,
+        id: number;
         attributes: {
-            name: string
-        }, links: {
-            self: string;
-        }
-    }[]
+            name: string;
+            address: string;
+            schedule: { TEXT: string };
+        };
+    }[];
 }
 
-interface HeroSliderData {
+ interface FooterSimpleNamedData {
     data: {
-        id: number,
+        id: number;
+        attributes: { name: string };
+        links?: ResourceLink;
+    }[];
+}
+
+
+ interface HeroSliderData {
+    data: {
+        id: number;
         attributes: {
-            name: string,
+            name: string;
             images: {
-                mobile: {
-                    src: string,
-                },
-                mob_image: string,
-                desktop: {
-                    src: string
-                },
-                preview: string,
-                detail: string,
-            },
+                mobile: { src: string };
+                mob_image: string;
+                desktop: { src: string };
+                preview: string;
+                detail: string;
+            };
             text: {
-                title: string,
-                text: string,
-                button_1_text: string,
-            },
+                title: string;
+                text: string;
+                button_1_text: string;
+            };
             styles: {
-                text_positon: string,
-                text_color: string, 
-            },
+                text_position: string; // Исправлено "text_positon"
+                text_color: string;
+            };
             links: {
-                banner_links: string,
-            }
-        },
-        links: {
-            self: string,
-        }
-    }[]
+                banner_links: string;
+            };
+        };
+        links: ResourceLink;
+    }[];
 }
 
-interface HeroAdvantagesData {
+ interface HeroAdvantagesData {
     data: {
-        id: number,
+        id: number;
         attributes: {
-            name: string,
-            text: string,
-            image: string,
-        }
-        links: {
-            self: string,
-        }
-    }[]
+            name: string;
+            text: string;
+            image: string;
+        };
+        links: ResourceLink;
+    }[];
 }
 
-
-
-interface HeroHitsCategoryData {
-    
-        id: number,
-        attributes: {
-            name: string,
-        },
-        links: {
-            self: string
-        },
-        included: {
-            "reviews-statistics": ReviewStaticData[]
-        }
-    
-}
-
-interface HeroHitsData {
-    data: HeroHitsCategoryData[],
-    
-}
-
-
-
-interface HomeHitsProductData {
-    data: SharedProductData[],
+ interface HeroHitsCategoryData {
+    id: number;
+    attributes: { name: string };
+    links: ResourceLink;
     included: {
-        "reviews-statistics":
-        {
-            id: number,
-            attributes: {
-                rating: number
-            },
-            count: number
-        }[]
-    }
+        "reviews-statistics": ReviewStaticData[];
+    };
 }
 
-interface HomePopularCategoryData {
-    data: {
-        id: string,
-        attributes: {
-            name: string,
-            images: {
-                preview: string,
-            }
-        },
-        links: {
-            self: string
-        }
-    }[]
+ interface HeroHitsData {
+    data: HeroHitsCategoryData[];
 }
 
-interface HomeBannerWithTextData {
+ interface HomeHitsProductData {
+    data: SharedProductData[];
+    included: {
+        "reviews-statistics": ReviewStatic[];
+    };
+}
+
+ interface HomePopularCategoryData {
     data: {
-        id: number,
+        id: string;
         attributes: {
-            name: string,
+            name: string;
+            images: { preview: string };
+        };
+        links: ResourceLink;
+    }[];
+}
+
+ interface HomeBannerWithTextData {
+    data: {
+        id: number;
+        attributes: {
+            name: string;
             images: {
-                preview: string,
-                detail: string,
-            },
+                preview: string;
+                detail: string;
+            };
             text: {
-                title: string,
-                text: string,
-            },
-            buttons: Record<string, { text: string, class: string, link: string }>,
-            links: {
-                self: string
-            }
-
-        }
-    }[]
+                title: string;
+                text: string;
+            };
+            buttons: Record<string, { text: string; class: string; link: string }>;
+            links: ResourceLink;
+        };
+    }[];
 }
 
-interface HomePopularBrends {
+ interface HomePopularBrands {
     data: {
-        id: number,
+        id: number;
         attributes: {
-            name: string,
+            name: string;
             main_page: {
-                name: string,
-                image: string,
-                url: string,
-            },
-        }
-        links: {
-            self: string,
-        }
-    }[]
+                name: string;
+                image: string;
+                url: string;
+            };
+        };
+        links: ResourceLink;
+    }[];
 }
 
-interface HomeWideData {
-    data: {
-        id: number,
-        attributes: {
-            name: string,
-            images: {
-                desktop: {
-                    src: string,
-                },
-                preview: string,
-            },
-            text: {
-                title: string,
-                text: string,
-            },
-            styles: {
-                "text_positon": string,
-                "text_color": string,
-            }
-        }
-    }[]
+ interface HomeWideData {
+    data: WideCardItem[];
 }
 
-interface HomeStockCardData {
-
-    id: number,
+ interface HomeStockCardData {
+    id: number;
     attributes: {
-        name: string,
+        name: string;
         images: {
-            desktop: {
-                src: string,
-            }
-            mobile: {
-                src: string,
-            }
-        },
-        title: string,
-        active_period: string,
-        discount: string,
-        image: string,
-    },
-    links: {
-        self: string,
-    }
-
+            desktop: { src: string };
+            mobile: { src: string };
+        };
+        title: string;
+        active_period: string;
+        discount: string;
+        image: string;
+    };
+    links: ResourceLink;
 }
 
-interface HomeStockData {
-    data: HomeStockCardData[]
+ interface HomeStockData {
+    data: HomeStockCardData[];
 }
 
-interface HomeBlogData {
+ interface HomeBlogData {
     data: {
-        id: number,
+        id: number;
         attributes: {
-            title: string,
-            image: string,
-            detail_page: string,
-        },
-        links: {
-            self: string,
-        }
-    }[]
+            title: string;
+            image: string;
+            detail_page: string;
+        };
+        links: ResourceLink;
+    }[];
 }
 
-interface HomeCompanyData {
+ interface HomeCompanyData {
     data: {
-        id: string,
+        id: string;
         attributes: {
-            name: string,
-            preview_text: string,
+            name: string;
+            preview_text: string;
             images: {
-                preview: string,
-                detail: string,
-            },
-
-
-        },
-        links: {
-            self: string,
-        }
-    }[]
+                preview: string;
+                detail: string;
+            };
+        };
+        links: ResourceLink;
+    }[];
 }

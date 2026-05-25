@@ -1,5 +1,4 @@
 <script setup lang='ts'>
-
 const { data: menu } = await useFetch<FooterMenuData>('/api/include/menu/footer');
 const { data: stores } = await useFetch<FooterStoresData>('/api/include/menu/stores');
 
