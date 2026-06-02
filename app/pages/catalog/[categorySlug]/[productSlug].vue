@@ -35,10 +35,10 @@ useSeoMeta({
                 </div>
 
                 <!-- ВСЯ ИНФА -->
-                <ProductTabs :attributes="productInfo?.data.attributes" />
+                <ProductTabs :quantity="productInfo?.data.attributes.product.quantity" :stores="productInfo?.included.stores" :pending="pending" :attributes="productInfo?.data.attributes" />
             </div>
             <!-- ПРАВАЯ ЧАСТЬ -->
-            <ProductPurchaseBlock :data="productInfo" />
+            <ProductPurchaseBlock :quantity="productInfo?.data.attributes.product.quantity" :stores="productInfo?.included.stores" :pending="pending" :data="productInfo" />
         </div>
 
         <!-- ВТОРАЯ ЧАСТЬ С ОТЗЫВАМИ -->
@@ -55,7 +55,6 @@ useSeoMeta({
         <!-- С этим товаром покупают -->
         <ProductAlsoBought />
 
-        <ProductViewed />
     </div>
 </template>
 

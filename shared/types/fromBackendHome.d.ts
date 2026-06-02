@@ -1,13 +1,13 @@
 
 
-interface FooterMenuData {
+export interface FooterMenuData {
     data: {
         help: FooterMenuSection;
         company: FooterMenuSection;
     };
 }
 
-interface FooterMenuSection {
+export interface FooterMenuSection {
     title: string;
     submenu: {
         id: number;
@@ -16,7 +16,7 @@ interface FooterMenuSection {
     }[][];
 }
 
- interface FooterStoresData {
+ export interface FooterStoresData {
     data: {
         id: number;
         attributes: {
@@ -27,7 +27,7 @@ interface FooterMenuSection {
     }[];
 }
 
- interface FooterSimpleNamedData {
+export  interface FooterSimpleNamedData {
     data: {
         id: number;
         attributes: { name: string };
@@ -36,7 +36,7 @@ interface FooterMenuSection {
 }
 
 
- interface HeroSliderData {
+export  interface HeroSliderData {
     data: {
         id: number;
         attributes: {
@@ -54,7 +54,7 @@ interface FooterMenuSection {
                 button_1_text: string;
             };
             styles: {
-                text_position: string; // Исправлено "text_positon"
+                text_position: string; 
                 text_color: string;
             };
             links: {
@@ -65,19 +65,21 @@ interface FooterMenuSection {
     }[];
 }
 
- interface HeroAdvantagesData {
-    data: {
-        id: number;
+ export interface HeroAdvantagesData {
+    data: HeroAdvantagesItem[];
+}
+
+export interface HeroAdvantagesItem {
+    id: number;
         attributes: {
             name: string;
             text: string;
             image: string;
         };
         links: ResourceLink;
-    }[];
 }
 
- interface HeroHitsCategoryData {
+export  interface HeroHitsCategoryData {
     id: number;
     attributes: { name: string };
     links: ResourceLink;
@@ -86,18 +88,18 @@ interface FooterMenuSection {
     };
 }
 
- interface HeroHitsData {
+ export interface HeroHitsData {
     data: HeroHitsCategoryData[];
 }
 
- interface HomeHitsProductData {
+ export interface HomeHitsProductData {
     data: SharedProductData[];
     included: {
         "reviews-statistics": ReviewStatic[];
     };
 }
 
- interface HomePopularCategoryData {
+ export interface HomePopularCategoryData {
     data: {
         id: string;
         attributes: {
@@ -108,7 +110,7 @@ interface FooterMenuSection {
     }[];
 }
 
- interface HomeBannerWithTextData {
+ export interface HomeBannerWithTextData {
     data: {
         id: number;
         attributes: {
@@ -127,7 +129,7 @@ interface FooterMenuSection {
     }[];
 }
 
- interface HomePopularBrands {
+ export interface HomePopularBrands {
     data: {
         id: number;
         attributes: {
@@ -142,11 +144,11 @@ interface FooterMenuSection {
     }[];
 }
 
- interface HomeWideData {
+ export interface HomeWideData {
     data: WideCardItem[];
 }
 
- interface HomeStockCardData {
+ export interface HomeStockCardData {
     id: number;
     attributes: {
         name: string;
@@ -162,11 +164,11 @@ interface FooterMenuSection {
     links: ResourceLink;
 }
 
- interface HomeStockData {
+export interface HomeStockData {
     data: HomeStockCardData[];
 }
 
- interface HomeBlogData {
+export interface HomeBlogData {
     data: {
         id: number;
         attributes: {
@@ -178,7 +180,7 @@ interface FooterMenuSection {
     }[];
 }
 
- interface HomeCompanyData {
+export interface HomeCompanyData {
     data: {
         id: string;
         attributes: {

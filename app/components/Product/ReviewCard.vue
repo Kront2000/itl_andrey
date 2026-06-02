@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import type { Review } from '~~/shared/types/formBackendProduct';
+
 const props = defineProps<{
     data: Review,
 }>()
@@ -27,7 +27,7 @@ const date = new Date(props.data.attributes.created_at);
                         </div>
                     </div>
 
-                    <span class="text-sm">{{ date.toLocaleDateString('ru-RU') + " / Опты использования: " +
+                    <span class="text-sm pl-2">{{ date.toLocaleDateString('ru-RU') + " / Опты использования: " +
                         data.attributes.user_experience}}</span>
                 </div>
             </div>
@@ -40,17 +40,17 @@ const date = new Date(props.data.attributes.created_at);
 
         <!-- Непосердственно отзыв -->
          <div class="flex flex-col gap-6 pb-9 border-b border-blue/10">
-            <div class="flex flex-col gap-1">
+            <div v-if="data.attributes.advantages" class="flex flex-col gap-1">
                 <p class="font-bold text-text-black">Достоинства:</p>
                 <p class="font-content text-text-black leading-6">{{ data.attributes.advantages }}</p>
             </div>
 
-            <div class="flex flex-col gap-1">
+            <div v-if="data.attributes.disadvantages" class="flex flex-col gap-1">
                 <p class="font-bold text-text-black">Недостатки:</p>
                 <p class="font-content text-text-black leading-6">{{ data.attributes.disadvantages }}</p>
             </div>
 
-            <div class="flex flex-col gap-1">
+            <div v-if="data.attributes.text" class="flex flex-col gap-1">
                 <p class="font-bold text-text-black">Комментарий:</p>
                 <p class="font-content text-text-black leading-6">{{ data.attributes.text }}</p>
             </div>

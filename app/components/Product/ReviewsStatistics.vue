@@ -1,5 +1,4 @@
 <script setup lang='ts'>
-import type { ReviewStaticData } from '~~/shared/types/formBackendProduct';
 const route = useRoute()
 const { pending, data } = useLazyFetch<ReviewStaticData>(`/api/catalog/${route.params.categorySlug}/${route.params.productSlug}/relationships/reviews-statistics/`)
 const totalNumberOfReviews = computed(() => {

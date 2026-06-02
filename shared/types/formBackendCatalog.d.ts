@@ -1,13 +1,13 @@
 
- interface WideCatalog {
+export interface WideCatalog {
     data: WideCardItem[];
 }
 
- interface CatalogMainEndpointData {
+export interface CatalogMainEndpointData {
     data: CatalogTitleCard[];
 }
 
- interface CatalogTitleCard {
+ export interface CatalogTitleCard {
     id: number;
     attributes: {
         name: string;
@@ -18,7 +18,7 @@
     links: ResourceLink;
 }
 
- interface CatalogFullInfoEndpointData {
+ export interface CatalogFullInfoEndpointData {
     data: {
         id: number;
         attributes: {
@@ -67,7 +67,7 @@
     };
 }
 
- interface FilterAttributes {
+export interface FilterAttributes {
     prices: {
         name: string;
         type: string;
@@ -84,14 +84,14 @@
     }[];
 }
 
- interface LTypeValues {
+ export interface LTypeValues {
     id: string;
     name: string;
     xml_id: string;
     value: string;
 }
 
- interface NTypeValues {
+ export interface NTypeValues {
     min: { id: string; value: number };
     max: { id: string; value: number };
 }

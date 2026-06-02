@@ -1,6 +1,9 @@
+export interface PropertyItem {
+  name: string;
+  value: number | string | string[];
+}
 
-
- interface ProductData {
+export interface ProductData {
     data: ProductResource;
     included: {
         stores: Record<string, StoreDetail>;
@@ -9,7 +12,7 @@
     meta: MetaInformation;
 }
 
- interface MetaInformation {
+export interface MetaInformation {
     settings: {
         pate_type: "type_1"; 
     };
@@ -23,12 +26,12 @@
     og: OpenGraphMeta;
 }
 
- interface ProductResource {
+export interface ProductResource {
     id: number;
     attributes: Attributes;
 }
 
- interface Attributes {
+export interface Attributes {
     name: string;
     article: string;
     description: string;
@@ -42,7 +45,7 @@
     sale: Sale[];
 }
 
- interface Tizers {
+export interface Tizers {
     id: number;
     attributes: {
         name: string;
@@ -53,13 +56,13 @@
     };
 }
 
- interface Sale {
+export interface Sale {
     id: string;
     attributes: { name: string };
     self: { link: string };
 }
 
- interface Brand {
+export interface Brand {
     id: number;
     attributes: {
         name: string;
@@ -68,7 +71,7 @@
     links: ResourceLink;
 }
 
-interface ProductCommerce {
+export interface ProductCommerce {
     quantity: number;
     currency: string;
     price: {
@@ -78,30 +81,30 @@ interface ProductCommerce {
     stores: StoreStock[];
 }
 
- interface ProductTab {
+export interface ProductTab {
     title: string;
     info: string;
     sort: number;
 }
 
- interface ProductImages {
+export interface ProductImages {
     preview: { src: string; alt: string };
     detail: { src: string; alt: string };
     more: Array<{ src: string; alt: string }>;
 }
 
- interface StoreStock {
+export interface StoreStock {
     store_id: string;
     amount: string;
     text: string;
 }
 
- interface ProductReviewsData {
+export interface ProductReviewsData {
     data: Review[];
     links: ResourceLink;
 }
 
- interface Review {
+export interface Review {
     id: number;
     attributes: {
         created_at: string;
@@ -115,7 +118,7 @@ interface ProductCommerce {
     };
 }
 
- interface ReviewStaticData {
+export interface ReviewStaticData {
     data: {
         id: number;
         attributes: { count: number };

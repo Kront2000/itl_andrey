@@ -22,18 +22,18 @@
         </UiInput>
       </form>
 
-      <div class="flex gap-4 hidden sm:flex">
-        <button type="button" class="flex items-center gap-2">
+      <div class="hidden sm:flex">
+        <button type="button" class="button">
           <IconsUser class="w-6 h-6 text-blue-600" />
           <span class="text-sm font-circe">Войти</span>
         </button>
 
-        <button type="button" class="flex items-center gap-2">
+        <button type="button" class="button">
           <IconsHeart class="w-6 h-6 text-blue-600" />
           <span class="text-sm font-circe">Избранное</span>
         </button>
 
-        <button type="button" class="flex items-center gap-2">
+        <button type="button" class="button">
           <IconsCart class="w-6 h-6 text-blue-600" />
           <span class="text-sm font-circe">Корзина</span>
         </button>
@@ -46,3 +46,11 @@
 
   </header>
 </template>
+
+<style scoped>
+  @reference "~/assets/css/main.css";
+
+  .button{
+    @apply flex items-center gap-2 hover:bg-blue/5 p-2 rounded-lg transition duration-150
+  }
+</style>

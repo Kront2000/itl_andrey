@@ -1,8 +1,35 @@
- interface ResourceLink {
+export interface FooterPhonesData {
+    data: {
+        id: number, attributes: {
+            name: string
+        }
+    }[]
+}
+export interface FooterSocialMediaData {
+    data: {
+        id: number, attributes: {
+            name: string
+        }, links: {
+            self: string;
+        }
+    }[]
+}
+export interface FooterInfoData {
+    data: {
+        id: number,
+        attributes: {
+            name: string
+        }, links: {
+            self: string;
+        }
+    }[]
+}
+
+export interface ResourceLink {
     self: string;
 }
 
- interface OpenGraphMeta {
+export interface OpenGraphMeta {
     "og:title": string;
     "og:type": string;
     "og:site_name": string;
@@ -11,7 +38,7 @@
     "og:image": string;
 }
 
- interface SEOMeta {
+export interface SEOMeta {
     title: string;
     description: string;
     keywords?: string;
@@ -19,14 +46,14 @@
     text_top?: string;
 }
 
- interface StoreDetail {
+export interface StoreDetail {
     name: string;
     address: string;
     phone: string;
     schedule: string;
 }
 
- interface ReviewStatic {
+export interface ReviewStatic {
     id: number;
     attributes: {
         rating: number;
@@ -34,7 +61,7 @@
     count: number;
 }
 
- interface SharedProductData {
+export interface SharedProductData {
     id: number;
     attributes: {
         name: string;
@@ -60,7 +87,7 @@
 }
 
 
-interface WideCardItem {
+export interface WideCardItem {
     id: number;
     attributes: {
         name: string;

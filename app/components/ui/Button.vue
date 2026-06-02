@@ -31,7 +31,7 @@ enum Type {
         :to="to" 
         class="flex rounded-md items-center justify-center text-text-black gap-2" 
         :class="{
-            'bg-yellow-400 px-4 py-3': type == Type.Default, 
+            'bg-yellow-400 px-4 py-3 hover:bg-yellow-300': type == Type.Default, 
             '': type == Type.Ghost, 
             'border border-current/40 px-4 py-1 ': type == 'outline'
         }"

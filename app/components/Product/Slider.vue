@@ -1,5 +1,4 @@
 <script setup lang='ts'>
-import type { ProductData } from '~~/shared/types/formBackendProduct';
 
 const props = defineProps<{
   product: ProductData | undefined,

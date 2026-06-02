@@ -1,7 +1,4 @@
 <script setup lang='ts'>
-import type { PropertyItem } from '~~/shared/types/formBackendProduct';
-
-
 
 defineProps<{
     properties: (PropertyItem | null)[] 

@@ -1,11 +1,19 @@
 <script setup lang='ts'>
-import type { ProductData } from '~~/shared/types/formBackendProduct';
 defineProps<{
-    data: ProductData | undefined
+    data: ProductData | undefined,
+    pending: boolean,
+    stores: Record<string, StoreDetail> | undefined,
+    quantity: number | undefined
 }>()
 </script>
 
 <template>
+    <div v-if="pending" class="flex flex-col gap-12">
+        <USkeleton class="w-full h-19 rounded-lg" />
+        <USkeleton class="w-full h-102 rounded-lg" />
+        <USkeleton class="w-full h-28 rounded-lg" />
+    </div>
+
     <div class="flex flex-col w-102 shrink-0 sticky top-25 gap-3">
         <div class="w-full rounded-lg border border-blue/20 flex justify-between items-center py-5 px-8">
             <span class="text-text-black">
@@ -32,7 +40,7 @@ defineProps<{
                 </div>
             </div>
 
-            <div class="flex justify-between items-center py-9 px-8">
+            <div v-if="data?.data.attributes.sale" class="flex justify-between items-center py-9 px-8">
                 <div class="flex flex-col gap-5.75">
                     <div v-for="value in data?.data.attributes.sale">
                         <p class="text-sm text-text-black/80">Товар участвует в акции:</p>
@@ -42,8 +50,23 @@ defineProps<{
                 <IconsPecrent />
 
             </div>
+        </div>
 
+        <div class="bg-blue/4 flex flex-col gap-4 py-5 px-8">
+            <div class="flex gap-4 items-center">
+                <IconsLoaction />
+                <p v-if="stores && quantity && quantity > 0">
+                    <NuxtLink class="text-blue hover:text-blue/60">Самовывоз</NuxtLink> из <span>{{ Object.keys(stores
+                        ?? {}).length }}</span> магазинов сегондя - бесплатно
+                </p>
+                <p v-else>Нет в наличии</p>
+            </div>
 
+            <div class="flex gap-4 items-center">
+                <IconsDelivery />
+                <p v-if="stores">Доставка по <span class="text-blue hover:text-blue/60">Костанаю</span> завтра - 990 ₸
+                </p>
+            </div>
         </div>
     </div>
 </template>

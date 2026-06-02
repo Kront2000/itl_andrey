@@ -16,7 +16,7 @@ const config = useRuntimeConfig()
             <NuxtLink class="" :to="item.links?.self || '/'">
                 <div class="w-full h-41 md:h-80 bg-dark-yellow overflow-hidden rounded-lg relative">
                     <div
-                        class="absolute flex flex-col left-0 top-0 px-4 py-8 lg:p-16 gap-2 lg:gap-6 2xl:gap-9 max-w-[50%] sm:max-w-full">
+                        class="absolute flex flex-col left-0 top-0 px-4 py-8 lg:p-16 gap-2 lg:gap-6 2xl:gap-9 max-w-[50%] sm:max-w-[50%]">
                         <span class="text-xl lg:text-3xl 2xl:text-[40px] lg:leading-11 text-text-black">
                             {{ item.attributes.text.title }}
                         </span>
@@ -27,7 +27,7 @@ const config = useRuntimeConfig()
                     <picture>
                         <source :srcset="config.public.baseUrl + item.attributes.images.mobile.src"
                             media="(width <= 768px)" />
-                        <img class="absolute right-0 clip object-cover object-right w-[50%] md:w-[70%] h-full"
+                        <img class="absolute right-0 clip object-cover object-right w-[50%] md:w-[55%] h-full"
                             loading="lazy" :src="config.public.baseUrl + item.attributes.images.desktop.src"
                             :alt="item.attributes.name" />
                     </picture>

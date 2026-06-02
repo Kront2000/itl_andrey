@@ -1,17 +1,5 @@
 <script setup lang='ts'>
-    defineProps<{
-        data: {
-            id: number,
-            attributes: {
-                name: string,
-                text: string,
-                image: string,
-            }
-            links: {
-                self: string
-            }
-        },
-    }>()
+    defineProps<{data: HeroAdvantagesItem}>()
 </script>
 
 <template>

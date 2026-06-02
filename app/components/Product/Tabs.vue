@@ -1,10 +1,12 @@
 <script setup lang='ts'>
-import type { Attributes, ProductTab, PropertyItem } from '~~/shared/types/formBackendProduct';
 const prop = defineProps<{
-    attributes: Attributes | undefined
+    attributes: Attributes | undefined,
+    pending: boolean,
+    stores: Record<string, StoreDetail> | undefined,
+    quantity: number | undefined
 }>()
 const list = computed(() => {
-    return [{ title: 'Описание', info: prop.attributes?.description } as ProductTab, { title: 'Характеристики' } as ProductTab, ...(tabsArray.value || [])]
+    return [{ title: 'Описание', info: prop.attributes?.description } as ProductTab, { title: 'Характеристики' } as ProductTab, { title: 'Наличие в магазинах' } as ProductTab, ...(tabsArray.value || [])]
 })
 const active = ref('Описание');
 
@@ -35,7 +37,13 @@ const secondHalf = computed(() => {
 
 <template>
     <section class="w-full flex flex-col gap-9">
-        <UCarousel :key="list.length" class="border-b border-b-blue/20  w-full" v-slot="{ item }" :items="list"
+        <UCarousel v-if="pending" class="border-b border-b-blue/20  w-full" v-slot="{ item }"
+            :items="[0, 0, 0, 0, 0, 0, 0, 0]" :ui="{ container: 'flex gap-4', item: 'basis-auto' }">
+            <USkeleton class="h-6 w-30 m-2 transition duration-300 " />
+
+        </UCarousel>
+
+        <UCarousel v-else :key="list.length" class="border-b border-b-blue/20  w-full" v-slot="{ item }" :items="list"
             :ui="{ container: 'flex gap-4', item: 'basis-auto' }">
             <button @click="active = item.title" class="py-5 px-4 transition duration-300"
                 :class="{ 'text-text-black': active != item.title, 'text-blue border-b border-b-blue': active == item.title }">
@@ -51,6 +59,19 @@ const secondHalf = computed(() => {
                 <ProductProperty :properties="secondHalf" />
             </div>
         </div>
+
+        <div v-else-if="active == 'Наличие в магазинах' && quantity && quantity > 0"
+            class="w-full grid grid-cols-10 grid-rows-1 gap-4">
+            <p className="col-span-3 text-text-gray text-sm">Адрес</p>
+            <p className="col-span-5 col-start-4 text-text-gray text-sm">Режим работы</p>
+            <p className="col-span-2 col-start-9 text-text-gray text-sm">Телефон</p>
+            <template v-for="value in stores">
+                <p v-html="value.address" className="col-span-3 text-text-black "></p>
+                <p v-html="value.schedule" className="col-span-5 col-start-4 text-text-black "></p>
+                <p v-html="value.phone" className="col-span-2 col-start-9 text-text-black"></p>
+            </template>
+        </div>
+
         <div v-else v-html="list.find((item) => item.title == active)?.info" class="w-full container">
         </div>
     </section>

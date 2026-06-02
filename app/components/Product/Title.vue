@@ -1,6 +1,5 @@
 <script setup lang='ts'>
 import type { BreadcrumbItem } from '@nuxt/ui';
-import type { ProductData } from '~~/shared/types/formBackendProduct';
 
 const props = defineProps<{
     product: ProductData | undefined,
