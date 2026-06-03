@@ -12,9 +12,7 @@
       </NuxtLink>
       
 
-      <UiButton class="hidden sm:flex" is="NuxtLink" content="Каталог товара" to="/catalog">
-        <IconsMenu class="w-4 h-4" />
-      </UiButton>
+      <SharedCatalogTreeButton />
 
       <form @submit.prevent class="flex grow h-12 relative">
         <UiInput placeholder="Поиск товаров и категорий">

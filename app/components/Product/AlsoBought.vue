@@ -1,6 +1,7 @@
 <script setup lang='ts'>
 const route = useRoute()
 const {data, pending} = useLazyFetch<HomeHitsProductData>(`/api/catalog/${route.params.categorySlug}/${route.params.productSlug}/relationships/expandables/`);
+
 </script>
 
 <template>

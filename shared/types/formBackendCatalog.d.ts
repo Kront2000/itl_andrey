@@ -95,3 +95,8 @@ export interface FilterAttributes {
     min: { id: string; value: number };
     max: { id: string; value: number };
 }
+
+export interface CatalogTreeElement {
+    data: CatalogTitleCard,
+    subcategory: CatalogTreeElement[],
+}

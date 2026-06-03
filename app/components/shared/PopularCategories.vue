@@ -33,9 +33,9 @@ const list = computed<Category[]>(() => {
   </UCarousel>
 
   <UCarousel v-else v-slot="{ item }" :items="list" :ui="{ item: 'basis-auto' }">
-    <NuxtLink v-if="item.attributes.name == 'Каталог товаров'" class="flex items-center gap-2 text-base font-normal text-ultra-dark-blue font-circe line-clamp-1 md:hidden py-2 px-5 rounded-lg bg-white "
+    <NuxtLink v-if="item.attributes.name == 'Каталог товаров'" class="flex items-center gap-2 text-base font-normal text-ultra-dark-blue font-circe line-clamp-1 md:hidden py-2 px-5 rounded-lg bg-white hover:bg-blue/5 transition duration-150"
       :to="item.links?.self || '/'"><IconsMenu />{{ item.attributes.name }}</NuxtLink>
-    <NuxtLink v-else class="text-base font-normal text-ultra-dark-blue font-circe line-clamp-1 shrink-0 py-2 px-5 rounded-lg bg-white "
+    <NuxtLink v-else class="text-base font-normal text-ultra-dark-blue font-circe line-clamp-1 shrink-0 py-2 px-5 rounded-lg bg-white hover:bg-blue/5 transition duration-150"
       :to="item.links?.self || '/'">{{ item.attributes.name }}</NuxtLink
       >
   </UCarousel>
