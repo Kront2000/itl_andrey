@@ -29,20 +29,6 @@
   --breakpoint-3xl: 118rem;
 }
 
-@layer utilities {
-  .hide-scrollbar {
-    /* Firefox */
-    scrollbar-width: none;
-    /* IE и Edge */
-    -ms-overflow-style: none;
-  }
-
-  /* Chrome, Safari и Opera */
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-}
-
 body { 
   font-family: var(--font-circe);
 }

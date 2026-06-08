@@ -1,6 +1,4 @@
 <script setup lang='ts'>
-import CategoryButton from '../ui/CategoryButton.vue';
-
 defineProps<{
     category: CatalogTitleCard
 }>()

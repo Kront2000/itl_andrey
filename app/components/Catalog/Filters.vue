@@ -3,7 +3,6 @@ const props = withDefaults(defineProps<{
   filter: FilterAttributes | undefined
   pending: boolean
   isMob?: boolean
-
 }>(), {
   isMob: false
 }) 

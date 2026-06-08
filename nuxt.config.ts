@@ -35,7 +35,7 @@ export default defineNuxtConfig({
     '/api/**': {
       proxy: {
         to: `${process.env.NUXT_PUBLIC_BASE_URL}/**`,
-        cookieDomainRewrite: 'localhost'
+        cookieDomainRewrite: process.env.NUXT_PUBLIC_HOST
       }
     },
     '/upload/**': {

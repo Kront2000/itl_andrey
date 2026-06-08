@@ -42,9 +42,6 @@ const reviewsMap = computed(() => {
         <UCarousel v-else v-slot="{ item }" :items="products?.data" :ui="{ item: 'basis-auto' }">
             <SharedProductCard :reviews-statistics="reviewsMap.get(item.id)" class="w-46 md:w-66" :data="item" />  
         </UCarousel>
-
-
-
     </div>
 </template>
 

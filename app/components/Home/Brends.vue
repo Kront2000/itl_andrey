@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-const { data: banners, pending } = useLazyFetch<HomePopularBrends>('/api/include/mainpage/brands/')
+const { data: banners, pending } = useLazyFetch<HomePopularBrands>('/api/include/mainpage/brands/')
 const firstEight = computed(() => {
     return banners.value?.data ? [...banners.value.data.slice(0, 8), ...banners.value.data.slice(0, 8)] : []
 })
