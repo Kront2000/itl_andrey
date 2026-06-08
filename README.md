@@ -54,6 +54,8 @@ cd itl_andrey
 ## 2.Настройте переменные окружения: Создайте файл .env в корне проекта и добавьте базовый url:
 ```bash
 NUXT_PUBLIC_BASE_URL=
+
+NUXT_PUBLIC_HOST=localhost 
 ```
 
 ### Локальная разработка
